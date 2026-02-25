@@ -23,7 +23,7 @@
 			bind:value={bid}
 			type="number"
 		/>
-		<Button class="w-full rounded-lg" on:click={handleSubmit}>
+		<Button className="w-full rounded-lg" on:click={handleSubmit}>
 			Submit bid
 		</Button>
 	</div>

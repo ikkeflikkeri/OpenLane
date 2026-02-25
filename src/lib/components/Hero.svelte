@@ -18,10 +18,10 @@
 				and concierge-level support.
 			</p>
 			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<Button variant="secondary" class="px-6 py-3 text-xs">
+				<Button variant="secondary" className="px-6 py-3 text-xs">
 					Browse inventory
 				</Button>
-				<Button variant="outline" class="px-6 py-3 text-xs">
+				<Button variant="outline" className="px-6 py-3 text-xs">
 					Become a seller
 				</Button>
 			</div>

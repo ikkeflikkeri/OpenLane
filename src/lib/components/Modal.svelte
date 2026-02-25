@@ -12,7 +12,7 @@
 		<div class="w-full max-w-md rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-xl">
 			<h3 class="text-lg font-semibold text-white">{title}</h3>
 			<p class="mt-3 text-sm text-slate-300">{description}</p>
-			<Button class="mt-6 w-full rounded-lg" variant="secondary" on:click={onClose}>
+			<Button className="mt-6 w-full rounded-lg" variant="secondary" on:click={onClose}>
 				Close
 			</Button>
 		</div>

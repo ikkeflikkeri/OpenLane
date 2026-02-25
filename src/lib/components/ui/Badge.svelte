@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let tone: 'emerald' | 'blue' | 'slate' | 'brand' | 'neutral' | 'success' = 'slate';
-	export let class: string = '';
+	export let className: string = '';
 
 	const tones = {
 		emerald: 'bg-emerald-500/20 text-emerald-300',
@@ -12,4 +12,4 @@
 	};
 </script>
 
-<span class={`rounded-full px-3 py-1 text-xs font-semibold ${tones[tone]} ${class}`}> <slot /> </span>
+<span class={`rounded-full px-3 py-1 text-xs font-semibold ${tones[tone]} ${className}`}> <slot /> </span>

@@ -9,7 +9,7 @@
 			case 'Live':
 				return 'success';
 			case 'Upcoming':
-				return 'info';
+				return 'blue';
 			default:
 				return 'neutral';
 		}
@@ -22,7 +22,7 @@
 >
 	<div class="relative h-44 overflow-hidden">
 		<img src={car.image} alt={car.name} class="h-full w-full object-cover transition group-hover:scale-105" />
-		<Badge class="absolute left-4 top-4" variant={statusVariant(car.status)}>
+		<Badge className="absolute left-4 top-4" tone={statusVariant(car.status)}>
 			{car.status}
 		</Badge>
 	</div>

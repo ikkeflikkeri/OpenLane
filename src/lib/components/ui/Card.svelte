@@ -2,7 +2,7 @@
 	export let padded = true;
 	export let variant: 'default' | 'subtle' = 'default';
 	export let size: 'sm' | 'md' = 'md';
-	export let class: string = '';
+	export let className: string = '';
 
 	const variants = {
 		default: 'border border-white/10 bg-white/5',
@@ -15,4 +15,4 @@
 	};
 </script>
 
-<div class={`rounded-2xl ${variants[variant]} ${padded ? sizes[size] : ''} ${class}`}> <slot /> </div>
+<div class={`rounded-2xl ${variants[variant]} ${padded ? sizes[size] : ''} ${className}`}> <slot /> </div>

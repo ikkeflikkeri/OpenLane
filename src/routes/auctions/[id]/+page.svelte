@@ -31,7 +31,7 @@
 						<p class="mt-2 text-sm text-slate-400">{car.year} • {car.location}</p>
 					</div>
 					<div class="flex items-center gap-3">
-						<Badge variant="success">{car.status}</Badge>
+						<Badge tone="success">{car.status}</Badge>
 						<Countdown target={car.endTime} />
 					</div>
 				</div>

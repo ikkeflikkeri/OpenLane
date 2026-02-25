@@ -3,7 +3,7 @@
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let full = false;
 	export let type: 'button' | 'submit' | 'reset' = 'button';
-	export let class: string = '';
+	export let className: string = '';
 
 	const variants = {
 		primary: 'bg-white text-slate-900 hover:bg-slate-200',
@@ -23,7 +23,7 @@
 	{type}
 	class={`inline-flex items-center justify-center rounded-full font-semibold transition ${sizes[size]} ${variants[variant]} ${
 		full ? 'w-full' : ''
-	} ${class}`}
+	} ${className}`}
 >
 	<slot />
 </button>
