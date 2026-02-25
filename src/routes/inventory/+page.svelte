@@ -4,10 +4,12 @@
 	import InventorySummary from '$lib/components/InventorySummary.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import { cars } from '$lib/data/cars';
+	import { SITE_URL } from '$lib/seo';
 
-	const years = cars.map((car) => car.year);
-	const prices = cars.map((car) => car.priceEstimate);
-	const mileages = cars.map((car) => car.mileage);
+	const auctions = cars;
+	const years = auctions.map((car) => car.year);
+	const prices = auctions.map((car) => car.priceEstimate);
+	const mileages = auctions.map((car) => car.mileage);
 
 	const defaultFilters: Filters = {
 		query: '',
@@ -32,7 +34,7 @@
 		filters = { ...defaultFilters };
 	};
 
-	$: filtered = cars.filter((car) => {
+	$: filtered = auctions.filter((car) => {
 		const matchesQuery =
 			filters.query.length === 0 ||
 			`${car.name} ${car.location} ${car.year}`.toLowerCase().includes(filters.query.toLowerCase());
@@ -56,7 +58,21 @@
 	});
 
 	$: liveCount = filtered.filter((car) => car.status === 'Live').length;
+
+	const title = 'Inventory — OpenLane';
+	const description = 'Browse verified auction-ready vehicles with live bidding status, filters, and instant insights.';
+	const pageUrl = `${SITE_URL}/inventory`;
 </script>
+
+<svelte:head>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={pageUrl} />
+	<link rel="canonical" href={pageUrl} />
+</svelte:head>
 
 <section class="mx-auto w-full max-w-6xl px-6 py-16">
 	<div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

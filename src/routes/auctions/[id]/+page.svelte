@@ -10,6 +10,7 @@
 	import Card from '$lib/components/ui/Card.svelte';
 	import Tabs from '$lib/components/ui/Tabs.svelte';
 	import { bidHistory, cars } from '$lib/data/cars';
+	import { SITE_URL } from '$lib/seo';
 
 	let showModal = false;
 	let latestBid = 0;
@@ -37,6 +38,9 @@
 
 	$: car = cars.find((item) => item.id === $page.params.id) ?? cars[0];
 	$: currentBid = currentBid || car.priceEstimate - 4500;
+	$: title = `${car?.name ?? 'Auction listing'} — OpenLane`;
+	$: description = `Live auction for ${car?.year ?? ''} ${car?.name ?? 'a premium vehicle'} in ${car?.location ?? 'OpenLane'}.`;
+	$: pageUrl = `${SITE_URL}/auctions/${car?.id ?? ''}`;
 
 	const handleBid = (amount: number) => {
 		latestBid = amount;
@@ -72,6 +76,16 @@
 		return () => clearInterval(interval);
 	});
 </script>
+
+<svelte:head>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={pageUrl} />
+	<link rel="canonical" href={pageUrl} />
+</svelte:head>
 
 <section class="mx-auto w-full max-w-6xl px-6 py-16">
 	<div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
