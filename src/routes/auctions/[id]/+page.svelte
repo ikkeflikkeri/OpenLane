@@ -8,7 +8,8 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Tabs from '$lib/components/ui/Tabs.svelte';
-	import { bidHistory, cars } from '$lib/data/cars';
+	import { getAuctionById, getAuctions, getBidsForAuction, getUserById } from '$lib/data/auctions';
+	import { SITE_URL } from '$lib/seo';
 
 	let showModal = false;
 	let latestBid = 0;
@@ -20,13 +21,36 @@
 		{ id: 'history', label: 'History' }
 	];
 
-	$: car = cars.find((item) => item.id === $page.params.id) ?? cars[0];
+	const auctions = getAuctions();
+
+	const formatBids = (auctionId: string) =>
+		getBidsForAuction(auctionId).map((bid) => ({
+			bidder: getUserById(bid.bidderId)?.name ?? 'Private Bidder',
+			amount: bid.amount,
+			time: bid.time
+		}));
+
+	$: car = getAuctionById($page.params.id) ?? auctions[0];
+	$: bidHistory = car ? formatBids(car.id) : [];
+	$: title = `${car?.name ?? 'Auction listing'} — OpenLane`;
+	$: description = `Live auction for ${car?.year ?? ''} ${car?.name ?? 'a premium vehicle'} in ${car?.location ?? 'OpenLane'}.`;
+	$: pageUrl = `${SITE_URL}/auctions/${car?.id ?? ''}`;
 
 	const handleBid = (amount: number) => {
 		latestBid = amount;
 		showModal = true;
 	};
 </script>
+
+<svelte:head>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={pageUrl} />
+	<link rel="canonical" href={pageUrl} />
+</svelte:head>
 
 <section class="mx-auto w-full max-w-6xl px-6 py-16">
 	<div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -105,7 +129,7 @@
 				<div class="mt-4 space-y-3 text-sm text-slate-300">
 					<div class="flex items-center justify-between">
 						<span>Current bid</span>
-						<span class="text-lg font-semibold text-white">€{(car.priceEstimate - 4500).toLocaleString()}</span>
+						<span class="text-lg font-semibold text-white">€{car.currentBid.toLocaleString()}</span>
 					</div>
 					<div class="flex items-center justify-between">
 						<span>Bid increment</span>

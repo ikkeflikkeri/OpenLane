@@ -4,14 +4,15 @@
 	import '../app.css';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { SITE_NAME } from '$lib/seo';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<title>OpenLane — Premium Car Auctions</title>
 	<link rel="icon" href={favicon} />
-	<meta name="description" content="OpenLane car auction platform with live bidding, inventory insights, and seamless checkout." />
+	<meta property="og:site_name" content={SITE_NAME} />
+	<meta name="twitter:card" content="summary" />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-950 text-slate-100">
