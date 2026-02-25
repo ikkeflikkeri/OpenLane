@@ -8,6 +8,7 @@ export type Car = {
 	fuel: 'Gasoline' | 'Hybrid' | 'Electric';
 	transmission: 'Automatic' | 'Manual';
 	image: string;
+	gallery: string[];
 	status: 'Live' | 'Upcoming' | 'Closed';
 	rating: number;
 	bids: number;
@@ -26,6 +27,11 @@ export const cars: Car[] = [
 		transmission: 'Automatic',
 		image:
 			'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+		gallery: [
+			'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1400&q=80'
+		],
 		status: 'Live',
 		rating: 4.9,
 		bids: 18,
@@ -42,6 +48,11 @@ export const cars: Car[] = [
 		transmission: 'Automatic',
 		image:
 			'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
+		gallery: [
+			'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80'
+		],
 		status: 'Live',
 		rating: 4.8,
 		bids: 24,
@@ -58,6 +69,11 @@ export const cars: Car[] = [
 		transmission: 'Automatic',
 		image:
 			'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1400&q=80',
+		gallery: [
+			'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1400&q=80'
+		],
 		status: 'Upcoming',
 		rating: 4.7,
 		bids: 9,
@@ -74,6 +90,11 @@ export const cars: Car[] = [
 		transmission: 'Automatic',
 		image:
 			'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1400&q=80',
+		gallery: [
+			'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80'
+		],
 		status: 'Live',
 		rating: 4.6,
 		bids: 16,
@@ -90,6 +111,11 @@ export const cars: Car[] = [
 		transmission: 'Manual',
 		image:
 			'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1400&q=80',
+		gallery: [
+			'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80'
+		],
 		status: 'Closed',
 		rating: 4.5,
 		bids: 22,
@@ -106,6 +132,11 @@ export const cars: Car[] = [
 		transmission: 'Automatic',
 		image:
 			'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80',
+		gallery: [
+			'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
+			'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1400&q=80'
+		],
 		status: 'Upcoming',
 		rating: 4.8,
 		bids: 11,

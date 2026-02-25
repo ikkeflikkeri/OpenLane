@@ -3,13 +3,22 @@
 	import BidForm from '$lib/components/BidForm.svelte';
 	import BidHistory from '$lib/components/BidHistory.svelte';
 	import Countdown from '$lib/components/Countdown.svelte';
+	import MediaGallery from '$lib/components/MediaGallery.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
+	import Tabs from '$lib/components/ui/Tabs.svelte';
 	import { bidHistory, cars } from '$lib/data/cars';
 
 	let showModal = false;
 	let latestBid = 0;
+	let activeTab = 'overview';
+
+	const tabOptions = [
+		{ id: 'overview', label: 'Overview' },
+		{ id: 'specs', label: 'Specs' },
+		{ id: 'history', label: 'History' }
+	];
 
 	$: car = cars.find((item) => item.id === $page.params.id) ?? cars[0];
 
@@ -22,7 +31,7 @@
 <section class="mx-auto w-full max-w-6xl px-6 py-16">
 	<div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
 		<div class="space-y-6">
-			<img src={car.image} alt={car.name} class="h-80 w-full rounded-3xl object-cover" />
+			<MediaGallery images={car.gallery} />
 			<Card>
 				<div class="flex flex-wrap items-center justify-between gap-4">
 					<div>
@@ -53,10 +62,40 @@
 						<p class="mt-2 text-lg font-semibold text-white">{car.transmission}</p>
 					</Card>
 				</div>
-				<p class="mt-6 text-sm text-slate-400">
-					This listing includes full inspection reports, service history, and a dedicated OpenLane concierge.
-					Schedule a private walkthrough or request additional photos with one click.
-				</p>
+				<div class="mt-8 space-y-4">
+					<Tabs tabs={tabOptions} active={activeTab} onChange={(id) => (activeTab = id)} />
+					{#if activeTab === 'overview'}
+						<p class="text-sm text-slate-400">
+							This listing includes full inspection reports, service history, and a dedicated OpenLane
+							concierge. Schedule a private walkthrough or request additional photos with one click.
+						</p>
+					{:else if activeTab === 'specs'}
+						<div class="grid gap-3 text-sm text-slate-300">
+							<div class="flex items-center justify-between">
+								<span>Drivetrain</span>
+								<span class="text-white">AWD Performance</span>
+							</div>
+							<div class="flex items-center justify-between">
+								<span>Horsepower</span>
+								<span class="text-white">720 hp</span>
+							</div>
+							<div class="flex items-center justify-between">
+								<span>0-100 km/h</span>
+								<span class="text-white">3.1s</span>
+							</div>
+							<div class="flex items-center justify-between">
+								<span>Top speed</span>
+								<span class="text-white">320 km/h</span>
+							</div>
+						</div>
+					{:else}
+						<ul class="space-y-3 text-sm text-slate-400">
+							<li>2024-11-14 — Full inspection completed (OpenLane certified)</li>
+							<li>2024-07-05 — Ceramic coating applied, interior refreshed</li>
+							<li>2024-03-19 — Major service completed at authorized dealer</li>
+						</ul>
+					{/if}
+				</div>
 			</Card>
 		</div>
 
