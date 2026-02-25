@@ -2,6 +2,7 @@
 	import CarCard from '$lib/components/CarCard.svelte';
 	import FilterPanel from '$lib/components/FilterPanel.svelte';
 	import InventorySummary from '$lib/components/InventorySummary.svelte';
+	import Badge from '$lib/components/ui/Badge.svelte';
 	import { cars } from '$lib/data/cars';
 
 	let filters = {
@@ -41,9 +42,9 @@
 				Filter by status, powertrain, and model year to spot your next auction.
 			</p>
 		</div>
-		<div class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-300">
+		<Badge tone="neutral" className="border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-300">
 			{filtered.length} results
-		</div>
+		</Badge>
 	</div>
 
 	<div class="mt-10 grid gap-6 lg:grid-cols-[1fr_320px]">

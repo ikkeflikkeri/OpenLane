@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Car } from '$lib/data/cars';
+	import Card from '$lib/components/ui/Card.svelte';
 
 	type Filters = {
 		query: string;
@@ -19,7 +19,7 @@
 	};
 </script>
 
-<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+<Card>
 	<h3 class="text-sm font-semibold text-white">Advanced filters</h3>
 	<div class="mt-4 grid gap-4 text-sm">
 		<label for="search" class="text-xs text-slate-400">Search</label>
@@ -93,4 +93,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</Card>

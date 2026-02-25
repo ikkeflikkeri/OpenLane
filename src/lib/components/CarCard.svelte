@@ -1,7 +1,19 @@
 <script lang="ts">
+	import Badge from '$lib/components/ui/Badge.svelte';
 	import type { Car } from '$lib/data/cars';
 
 	export let car: Car;
+
+	const statusVariant = (status: Car['status']) => {
+		switch (status) {
+			case 'Live':
+				return 'success';
+			case 'Upcoming':
+				return 'blue';
+			default:
+				return 'neutral';
+		}
+	};
 </script>
 
 <a
@@ -10,17 +22,9 @@
 >
 	<div class="relative h-44 overflow-hidden">
 		<img src={car.image} alt={car.name} class="h-full w-full object-cover transition group-hover:scale-105" />
-		<span
-			class={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ${
-				car.status === 'Live'
-					? 'bg-emerald-500/20 text-emerald-300'
-					: car.status === 'Upcoming'
-						? 'bg-blue-500/20 text-blue-300'
-						: 'bg-slate-500/20 text-slate-200'
-			}`}
-		>
+		<Badge className="absolute left-4 top-4" tone={statusVariant(car.status)}>
 			{car.status}
-		</span>
+		</Badge>
 	</div>
 	<div class="flex flex-1 flex-col gap-4 p-6">
 		<div>

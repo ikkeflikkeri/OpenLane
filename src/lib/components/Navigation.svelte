@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Button from '$lib/components/ui/Button.svelte';
+
 	const links = [
 		{ label: 'Home', href: '/' },
 		{ label: 'Inventory', href: '/inventory' },
@@ -19,12 +21,8 @@
 			{/each}
 		</nav>
 		<div class="flex items-center gap-3">
-			<button class="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/80 transition hover:border-white/30 hover:text-white">
-				Log in
-			</button>
-			<button class="rounded-full bg-white px-4 py-2 text-xs font-semibold text-slate-900 transition hover:bg-slate-200">
-				Get started
-			</button>
+			<Button variant="outline" size="sm">Log in</Button>
+			<Button variant="secondary" size="sm">Get started</Button>
 		</div>
 	</div>
 </header>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Countdown from '$lib/components/Countdown.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	export let featuredEnd: string;
 </script>
@@ -17,12 +18,12 @@
 				and concierge-level support.
 			</p>
 			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<button class="rounded-full bg-white px-6 py-3 text-xs font-semibold text-slate-900">
+				<Button variant="secondary" className="px-6 py-3 text-xs">
 					Browse inventory
-				</button>
-				<button class="rounded-full border border-white/15 px-6 py-3 text-xs font-semibold text-white/80">
+				</Button>
+				<Button variant="outline" className="px-6 py-3 text-xs">
 					Become a seller
-				</button>
+				</Button>
 			</div>
 			<div class="mt-10 flex items-center gap-6 text-xs text-slate-400">
 				<div>
