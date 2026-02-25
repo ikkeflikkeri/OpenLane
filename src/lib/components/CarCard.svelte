@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Badge from '$lib/components/ui/Badge.svelte';
-	import type { Car } from '$lib/data/cars';
+	import type { Auction } from '$lib/data/auctions';
 
-	export let car: Car;
+	export let car: Auction;
 
-	const statusVariant = (status: Car['status']) => {
+	const statusVariant = (status: Auction['status']) => {
 		switch (status) {
 			case 'Live':
 				return 'success';

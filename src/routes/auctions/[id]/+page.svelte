@@ -9,14 +9,15 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Tabs from '$lib/components/ui/Tabs.svelte';
-	import { bidHistory, cars } from '$lib/data/cars';
+	import { getAuctionById, getAuctions, getBidsForAuction, getUserById } from '$lib/data/auctions';
 	import { SITE_URL } from '$lib/seo';
 
 	let showModal = false;
 	let latestBid = 0;
 	let activeTab = 'overview';
+	let bidHistory: { bidder: string; amount: number; time: string }[] = [];
 	let currentBid = 0;
-	let liveBids = [...bidHistory];
+	let liveBids: { bidder: string; amount: number; time: string }[] = [];
 	let highlightCurrentBid = false;
 	let highlightIndex: number | null = null;
 
@@ -36,8 +37,21 @@
 		'Valencia Classics'
 	];
 
-	$: car = cars.find((item) => item.id === $page.params.id) ?? cars[0];
-	$: currentBid = currentBid || car.priceEstimate - 4500;
+	const auctions = getAuctions();
+
+	const formatBids = (auctionId: string) =>
+		getBidsForAuction(auctionId).map((bid) => ({
+			bidder: getUserById(bid.bidderId)?.name ?? 'Private Bidder',
+			amount: bid.amount,
+			time: bid.time
+		}));
+
+	$: car = getAuctionById($page.params.id) ?? auctions[0];
+	$: bidHistory = car ? formatBids(car.id) : [];
+	$: currentBid = currentBid || car.currentBid;
+	$: if (bidHistory.length > 0 && liveBids.length === 0) {
+		liveBids = bidHistory;
+	}
 	$: title = `${car?.name ?? 'Auction listing'} — OpenLane`;
 	$: description = `Live auction for ${car?.year ?? ''} ${car?.name ?? 'a premium vehicle'} in ${car?.location ?? 'OpenLane'}.`;
 	$: pageUrl = `${SITE_URL}/auctions/${car?.id ?? ''}`;
@@ -57,7 +71,10 @@
 	};
 
 	onMount(() => {
-		currentBid = car.priceEstimate - 4500;
+		currentBid = car.currentBid;
+		if (liveBids.length === 0) {
+			liveBids = bidHistory;
+		}
 		const interval = setInterval(() => {
 			const increment = 1000 * (1 + Math.floor(Math.random() * 3));
 			const nextBid = currentBid + increment;

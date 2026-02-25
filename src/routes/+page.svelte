@@ -4,10 +4,10 @@
 	import StatCard from '$lib/components/StatCard.svelte';
 	import CarCard from '$lib/components/CarCard.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
-	import { cars } from '$lib/data/cars';
+	import { getFeaturedAuctions } from '$lib/data/auctions';
 	import { SITE_URL } from '$lib/seo';
 
-	const featured = cars.slice(0, 3);
+	const featured = getFeaturedAuctions(3);
 	const featuredEnd = featured[0]?.endTime ?? new Date().toISOString();
 	const title = 'OpenLane — Premium Car Auctions';
 	const description =
