@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import BidForm from '$lib/components/BidForm.svelte';
 	import BidHistory from '$lib/components/BidHistory.svelte';
 	import Countdown from '$lib/components/Countdown.svelte';
@@ -8,12 +9,16 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Tabs from '$lib/components/ui/Tabs.svelte';
-	import { getAuctionById, getAuctions, getBidsForAuction, getUserById } from '$lib/data/auctions';
+	import { bidHistory, cars } from '$lib/data/cars';
 	import { SITE_URL } from '$lib/seo';
 
 	let showModal = false;
 	let latestBid = 0;
 	let activeTab = 'overview';
+	let currentBid = 0;
+	let liveBids = [...bidHistory];
+	let highlightCurrentBid = false;
+	let highlightIndex: number | null = null;
 
 	const tabOptions = [
 		{ id: 'overview', label: 'Overview' },
@@ -21,17 +26,18 @@
 		{ id: 'history', label: 'History' }
 	];
 
-	const auctions = getAuctions();
+	const bidders = [
+		'DriveMax Capital',
+		'Apex Auto Fund',
+		'Velocity Collective',
+		'Nordic Motors',
+		'Summit Auto Group',
+		'Atlas Performance',
+		'Valencia Classics'
+	];
 
-	const formatBids = (auctionId: string) =>
-		getBidsForAuction(auctionId).map((bid) => ({
-			bidder: getUserById(bid.bidderId)?.name ?? 'Private Bidder',
-			amount: bid.amount,
-			time: bid.time
-		}));
-
-	$: car = getAuctionById($page.params.id) ?? auctions[0];
-	$: bidHistory = car ? formatBids(car.id) : [];
+	$: car = cars.find((item) => item.id === $page.params.id) ?? cars[0];
+	$: currentBid = currentBid || car.priceEstimate - 4500;
 	$: title = `${car?.name ?? 'Auction listing'} — OpenLane`;
 	$: description = `Live auction for ${car?.year ?? ''} ${car?.name ?? 'a premium vehicle'} in ${car?.location ?? 'OpenLane'}.`;
 	$: pageUrl = `${SITE_URL}/auctions/${car?.id ?? ''}`;
@@ -40,6 +46,35 @@
 		latestBid = amount;
 		showModal = true;
 	};
+
+	const pulseHighlights = () => {
+		highlightCurrentBid = true;
+		highlightIndex = 0;
+		setTimeout(() => {
+			highlightCurrentBid = false;
+			highlightIndex = null;
+		}, 1400);
+	};
+
+	onMount(() => {
+		currentBid = car.priceEstimate - 4500;
+		const interval = setInterval(() => {
+			const increment = 1000 * (1 + Math.floor(Math.random() * 3));
+			const nextBid = currentBid + increment;
+			const bidder = bidders[Math.floor(Math.random() * bidders.length)];
+			const nextEntry = {
+				bidder,
+				amount: nextBid,
+				time: 'Just now'
+			};
+
+			currentBid = nextBid;
+			liveBids = [nextEntry, ...liveBids].slice(0, 5);
+			pulseHighlights();
+		}, 5200);
+
+		return () => clearInterval(interval);
+	});
 </script>
 
 <svelte:head>
@@ -129,7 +164,15 @@
 				<div class="mt-4 space-y-3 text-sm text-slate-300">
 					<div class="flex items-center justify-between">
 						<span>Current bid</span>
-						<span class="text-lg font-semibold text-white">€{car.currentBid.toLocaleString()}</span>
+						<span
+							class={`text-lg font-semibold transition ${
+								highlightCurrentBid
+									? 'text-emerald-100 drop-shadow-[0_0_10px_rgba(16,185,129,0.6)]'
+									: 'text-white'
+							}`}
+						>
+							€{currentBid.toLocaleString()}
+						</span>
 					</div>
 					<div class="flex items-center justify-between">
 						<span>Bid increment</span>
@@ -142,7 +185,7 @@
 				</div>
 			</Card>
 			<BidForm on:submit={(e) => handleBid(e.detail)} />
-			<BidHistory bids={bidHistory} />
+			<BidHistory bids={liveBids} highlightIndex={highlightIndex} />
 		</div>
 	</div>
 </section>
