@@ -1,33 +1,58 @@
 <script lang="ts">
 	import CarCard from '$lib/components/CarCard.svelte';
-	import FilterPanel from '$lib/components/FilterPanel.svelte';
+	import FilterPanel, { type Filters } from '$lib/components/FilterPanel.svelte';
 	import InventorySummary from '$lib/components/InventorySummary.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import { cars } from '$lib/data/cars';
 
-	let filters = {
+	const years = cars.map((car) => car.year);
+	const prices = cars.map((car) => car.priceEstimate);
+	const mileages = cars.map((car) => car.mileage);
+
+	const defaultFilters: Filters = {
 		query: '',
-		status: 'All',
-		fuel: 'All',
+		status: [],
+		fuel: [],
 		transmission: 'All',
-		minYear: 2018,
-		maxYear: 2024
+		minYear: Math.min(...years),
+		maxYear: Math.max(...years),
+		minPrice: Math.min(...prices),
+		maxPrice: Math.max(...prices),
+		minMileage: Math.min(...mileages),
+		maxMileage: Math.max(...mileages)
 	};
 
-	const handleUpdate = (next: typeof filters) => {
+	let filters: Filters = { ...defaultFilters };
+
+	const handleUpdate = (next: Filters) => {
 		filters = next;
+	};
+
+	const handleReset = () => {
+		filters = { ...defaultFilters };
 	};
 
 	$: filtered = cars.filter((car) => {
 		const matchesQuery =
 			filters.query.length === 0 ||
 			`${car.name} ${car.location} ${car.year}`.toLowerCase().includes(filters.query.toLowerCase());
-		const matchesStatus = filters.status === 'All' || car.status === filters.status;
-		const matchesFuel = filters.fuel === 'All' || car.fuel === filters.fuel;
+		const matchesStatus = filters.status.length === 0 || filters.status.includes(car.status);
+		const matchesFuel = filters.fuel.length === 0 || filters.fuel.includes(car.fuel);
 		const matchesTransmission =
 			filters.transmission === 'All' || car.transmission === filters.transmission;
 		const matchesYear = car.year >= filters.minYear && car.year <= filters.maxYear;
-		return matchesQuery && matchesStatus && matchesFuel && matchesTransmission && matchesYear;
+		const matchesPrice =
+			car.priceEstimate >= filters.minPrice && car.priceEstimate <= filters.maxPrice;
+		const matchesMileage = car.mileage >= filters.minMileage && car.mileage <= filters.maxMileage;
+		return (
+			matchesQuery &&
+			matchesStatus &&
+			matchesFuel &&
+			matchesTransmission &&
+			matchesYear &&
+			matchesPrice &&
+			matchesMileage
+		);
 	});
 
 	$: liveCount = filtered.filter((car) => car.status === 'Live').length;
@@ -54,7 +79,7 @@
 			{/each}
 		</div>
 		<div class="space-y-6">
-			<FilterPanel {filters} onUpdate={handleUpdate} />
+			<FilterPanel {filters} defaults={defaultFilters} onUpdate={handleUpdate} onReset={handleReset} />
 			<InventorySummary count={filtered.length} {liveCount} />
 		</div>
 	</div>
