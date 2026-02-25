@@ -1,7 +1,4 @@
-<script lang="ts">
-	import Badge from '$lib/components/ui/Badge.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-
+<script context="module" lang="ts">
 	export type Filters = {
 		query: string;
 		status: string[];
@@ -14,6 +11,11 @@
 		minMileage: number;
 		maxMileage: number;
 	};
+</script>
+
+<script lang="ts">
+	import Badge from '$lib/components/ui/Badge.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 
 	export let filters: Filters;
 	export let defaults: Filters;
@@ -65,8 +67,8 @@
 		/>
 	</div>
 	<div class="mt-4 grid gap-4 text-sm">
-		<div>
-			<label class="text-xs text-slate-400">Status</label>
+		<fieldset>
+			<legend class="text-xs text-slate-400">Status</legend>
 			<div class="mt-2 flex flex-wrap gap-2">
 				{#each ['Live', 'Upcoming', 'Closed'] as option}
 					<button
@@ -83,9 +85,9 @@
 				{/each}
 			</div>
 			<p class="mt-2 text-[11px] text-slate-500">Leave empty to include all statuses.</p>
-		</div>
-		<div>
-			<label class="text-xs text-slate-400">Fuel</label>
+		</fieldset>
+		<fieldset>
+			<legend class="text-xs text-slate-400">Fuel</legend>
 			<div class="mt-2 flex flex-wrap gap-2">
 				{#each ['Gasoline', 'Hybrid', 'Electric'] as option}
 					<button
@@ -102,7 +104,7 @@
 				{/each}
 			</div>
 			<p class="mt-2 text-[11px] text-slate-500">Select one or more powertrains.</p>
-		</div>
+		</fieldset>
 	</div>
 	<div class="mt-4 grid gap-4 text-sm sm:grid-cols-2">
 		<div>
