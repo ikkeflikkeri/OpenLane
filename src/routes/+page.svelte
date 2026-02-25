@@ -4,10 +4,10 @@
 	import StatCard from '$lib/components/StatCard.svelte';
 	import CarCard from '$lib/components/CarCard.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
-	import { getFeaturedAuctions } from '$lib/data/auctions';
+	import { cars } from '$lib/data/cars';
 	import { SITE_URL } from '$lib/seo';
 
-	const featured = getFeaturedAuctions(3);
+	const featured = cars.slice(0, 3);
 	const featuredEnd = featured[0]?.endTime ?? new Date().toISOString();
 	const title = 'OpenLane — Premium Car Auctions';
 	const description =
@@ -20,8 +20,8 @@
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://openlane.example/" />
-	<link rel="canonical" href="https://openlane.example/" />
+	<meta property="og:url" content={SITE_URL} />
+	<link rel="canonical" href={SITE_URL} />
 </svelte:head>
 
 <Hero {featuredEnd} />

@@ -65,8 +65,11 @@
 			<div class="mt-6 flex flex-col gap-3">
 				{#if mode === 'signup'}
 					<div>
-						<label class="text-xs font-semibold uppercase tracking-wide text-slate-400">Full name</label>
+						<label for="full-name" class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+							Full name
+						</label>
 						<input
+							id="full-name"
 							class="mt-2 w-full rounded-lg border border-white/10 bg-slate-900/60 px-4 py-2 text-sm text-white focus:border-brand focus:outline-none"
 							placeholder="Avery Johnson"
 							bind:value={name}
@@ -75,8 +78,11 @@
 					</div>
 				{/if}
 				<div>
-					<label class="text-xs font-semibold uppercase tracking-wide text-slate-400">Email address</label>
+					<label for="email" class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+						Email address
+					</label>
 					<input
+						id="email"
 						class="mt-2 w-full rounded-lg border border-white/10 bg-slate-900/60 px-4 py-2 text-sm text-white focus:border-brand focus:outline-none"
 						placeholder="you@openlane.com"
 						bind:value={email}
@@ -84,8 +90,11 @@
 					/>
 				</div>
 				<div>
-					<label class="text-xs font-semibold uppercase tracking-wide text-slate-400">Password</label>
+					<label for="password" class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+						Password
+					</label>
 					<input
+						id="password"
 						class="mt-2 w-full rounded-lg border border-white/10 bg-slate-900/60 px-4 py-2 text-sm text-white focus:border-brand focus:outline-none"
 						placeholder="••••••••"
 						bind:value={password}
