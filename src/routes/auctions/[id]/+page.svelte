@@ -4,6 +4,8 @@
 	import BidHistory from '$lib/components/BidHistory.svelte';
 	import Countdown from '$lib/components/Countdown.svelte';
 	import Modal from '$lib/components/Modal.svelte';
+	import Badge from '$lib/components/ui/Badge.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import { bidHistory, cars } from '$lib/data/cars';
 
 	let showModal = false;
@@ -21,7 +23,7 @@
 	<div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
 		<div class="space-y-6">
 			<img src={car.image} alt={car.name} class="h-80 w-full rounded-3xl object-cover" />
-			<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+			<Card>
 				<div class="flex flex-wrap items-center justify-between gap-4">
 					<div>
 						<p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand">Auction listing</p>
@@ -29,39 +31,37 @@
 						<p class="mt-2 text-sm text-slate-400">{car.year} • {car.location}</p>
 					</div>
 					<div class="flex items-center gap-3">
-						<span class="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-200">
-							{car.status}
-						</span>
+						<Badge variant="success">{car.status}</Badge>
 						<Countdown target={car.endTime} />
 					</div>
 				</div>
 				<div class="mt-6 grid gap-4 text-sm text-slate-300 md:grid-cols-2">
-					<div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+					<Card variant="subtle" size="sm">
 						<p class="text-xs uppercase tracking-[0.3em] text-slate-500">Estimate</p>
 						<p class="mt-2 text-lg font-semibold text-white">€{car.priceEstimate.toLocaleString()}</p>
-					</div>
-					<div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+					</Card>
+					<Card variant="subtle" size="sm">
 						<p class="text-xs uppercase tracking-[0.3em] text-slate-500">Mileage</p>
 						<p class="mt-2 text-lg font-semibold text-white">{car.mileage.toLocaleString()} km</p>
-					</div>
-					<div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+					</Card>
+					<Card variant="subtle" size="sm">
 						<p class="text-xs uppercase tracking-[0.3em] text-slate-500">Powertrain</p>
 						<p class="mt-2 text-lg font-semibold text-white">{car.fuel}</p>
-					</div>
-					<div class="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+					</Card>
+					<Card variant="subtle" size="sm">
 						<p class="text-xs uppercase tracking-[0.3em] text-slate-500">Transmission</p>
 						<p class="mt-2 text-lg font-semibold text-white">{car.transmission}</p>
-					</div>
+					</Card>
 				</div>
 				<p class="mt-6 text-sm text-slate-400">
 					This listing includes full inspection reports, service history, and a dedicated OpenLane concierge.
 					Schedule a private walkthrough or request additional photos with one click.
 				</p>
-			</div>
+			</Card>
 		</div>
 
 		<div class="space-y-6">
-			<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+			<Card>
 				<h3 class="text-sm font-semibold text-white">Live bidding</h3>
 				<div class="mt-4 space-y-3 text-sm text-slate-300">
 					<div class="flex items-center justify-between">
@@ -77,7 +77,7 @@
 						<span class="font-semibold text-white">38</span>
 					</div>
 				</div>
-			</div>
+			</Card>
 			<BidForm on:submit={(e) => handleBid(e.detail)} />
 			<BidHistory bids={bidHistory} />
 		</div>

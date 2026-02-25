@@ -1,8 +1,10 @@
 <script lang="ts">
+	import Card from '$lib/components/ui/Card.svelte';
+
 	export let bids: { bidder: string; amount: number; time: string }[];
 </script>
 
-<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+<Card>
 	<h3 class="text-sm font-semibold text-white">Bid history</h3>
 	<ul class="mt-4 space-y-3">
 		{#each bids as bid}
@@ -15,4 +17,4 @@
 			</li>
 		{/each}
 	</ul>
-</div>
+</Card>

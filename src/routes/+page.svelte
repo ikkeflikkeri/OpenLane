@@ -3,6 +3,7 @@
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
 	import StatCard from '$lib/components/StatCard.svelte';
 	import CarCard from '$lib/components/CarCard.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import { cars } from '$lib/data/cars';
 
 	const featured = cars.slice(0, 3);
@@ -39,17 +40,17 @@
 		subtitle="A platform designed to keep you in control with instant data, real-time alerts, and a premium concierge team."
 	/>
 	<div class="mt-10 grid gap-6 md:grid-cols-3">
-		<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+		<Card>
 			<h3 class="text-base font-semibold text-white">Real-time watchlists</h3>
 			<p class="mt-2 text-sm text-slate-400">Track bids, compare vehicles, and get instant status notifications.</p>
-		</div>
-		<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+		</Card>
+		<Card>
 			<h3 class="text-base font-semibold text-white">Dynamic analytics</h3>
 			<p class="mt-2 text-sm text-slate-400">Get pricing trends, bid velocity metrics, and auction forecasts.</p>
-		</div>
-		<div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+		</Card>
+		<Card>
 			<h3 class="text-base font-semibold text-white">Concierge support</h3>
 			<p class="mt-2 text-sm text-slate-400">Dedicated agents coordinate inspections, logistics, and escrow.</p>
-		</div>
+		</Card>
 	</div>
 </section>
